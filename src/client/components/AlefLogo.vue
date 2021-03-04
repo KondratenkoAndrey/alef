@@ -1,9 +1,9 @@
 <template>
-  <img class="VuetifyLogo" alt="Vuetify Logo" src="/vuetify-logo.svg" />
+  <img class="AlefLogo" alt="Alef Logo" src="/alef-logo.svg" />
 </template>
 
 <style>
-.VuetifyLogo {
+.AlefLogo {
   height: 180px;
   width: 180px;
   transform: rotateY(560deg);
