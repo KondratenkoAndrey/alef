@@ -13,8 +13,15 @@
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
       <b-collapse id="nav-collapse" is-nav>
-        <b-navbar-nav>
-          <b-nav-item href="#">Link</b-nav-item>
+        <b-navbar-nav class="mx-auto">
+          <b-nav-item
+            class="navbar-light font-weight-bold"
+            v-for="(link, i) in links"
+            :key="i"
+            :to="link.to"
+          >
+            {{ link.title }}
+          </b-nav-item>
         </b-navbar-nav>
 
         <b-navbar-nav class="ml-auto">
@@ -48,6 +55,14 @@ export default {
     return {
       phone: '+7(789)123-45-67',
       email: 'info@example.ru',
+      links: [
+        { to: '#', title: 'Ссылка 1' },
+        { to: '#', title: 'Ссылка 2' },
+        { to: '#', title: 'Ссылка 3' },
+        { to: '#', title: 'Ссылка 4' },
+        { to: '#', title: 'Ссылка 5' },
+        { to: '#', title: 'Ссылка 6' },
+      ],
     }
   },
 }
