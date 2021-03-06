@@ -1,40 +1,73 @@
 <template>
-  <v-row justify="center" align="center">
-    <v-col cols="12" sm="8" md="6">
-      <div class="text-center">
-        <alef-logo />
+  <div class="container">
+    <div>
+      <Logo />
+      <h1 class="title">
+        alef
+      </h1>
+      <div class="links">
+        <a
+          href="https://nuxtjs.org/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="button--green"
+        >
+          Documentation
+        </a>
+        <a
+          href="https://github.com/nuxt/nuxt.js"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="button--grey"
+        >
+          GitHub
+        </a>
       </div>
-      <v-card>
-        <v-card-title class="headline">
-          Lorem ipsum dolor sit amet.
-        </v-card-title>
-        <v-card-text>
-          <p>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deleniti
-            sapiente enim ab iure ut quidem non corrupti, quam possimus
-            blanditiis pariatur itaque minus eum atque fugit repudiandae magnam.
-            Accusamus, labore. Dignissimos rerum maxime ab expedita quam facere
-            nesciunt ratione impedit temporibus! Perferendis cupiditate ex cum
-            temporibus commodi recusandae consequatur voluptas, totam quasi
-            praesentium, et dignissimos! Similique repellat libero commodi
-            dolor?
-          </p>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn color="primary" nuxt to="/inspire"> Continue </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-col>
-  </v-row>
+    </div>
+  </div>
 </template>
 
 <script>
-import AlefLogo from '~/components/AlefLogo.vue'
-
-export default {
-  components: {
-    AlefLogo,
-  },
-}
+export default {}
 </script>
+
+<style>
+.container {
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.title {
+  font-family:
+    'Quicksand',
+    'Source Sans Pro',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    'Helvetica Neue',
+    Arial,
+    sans-serif;
+  display: block;
+  font-weight: 300;
+  font-size: 100px;
+  color: #35495e;
+  letter-spacing: 1px;
+}
+
+.subtitle {
+  font-weight: 300;
+  font-size: 42px;
+  color: #526488;
+  word-spacing: 5px;
+  padding-bottom: 15px;
+}
+
+.links {
+  padding-top: 15px;
+}
+</style>
