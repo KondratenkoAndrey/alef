@@ -17,25 +17,38 @@
           <b-nav-item href="#">Link</b-nav-item>
         </b-navbar-nav>
 
-        <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
-          <b-nav-item-dropdown text="Lang" right>
-            <b-dropdown-item href="#">EN</b-dropdown-item>
-            <b-dropdown-item href="#">ES</b-dropdown-item>
-            <b-dropdown-item href="#">RU</b-dropdown-item>
-            <b-dropdown-item href="#">FA</b-dropdown-item>
-          </b-nav-item-dropdown>
-
-          <b-nav-item-dropdown right>
-            <!-- Using 'button-content' slot -->
-            <template #button-content>
-              <em>User</em>
-            </template>
-            <b-dropdown-item href="#">Profile</b-dropdown-item>
-            <b-dropdown-item href="#">Sign Out</b-dropdown-item>
-          </b-nav-item-dropdown>
+          <span class="navbar-text pt-0 pb-0 text-center">
+            <span class="navbar-text p-0 mr-3 text-center">
+              <small>Контактный телефон</small>
+              <a
+                class="nav-link text-dark font-weight-bold p-0"
+                :href="'tel:' + phone"
+                >{{ phone }}</a
+              >
+            </span>
+            <span class="navbar-text p-0 mr-0 text-center">
+              <small>Электронная почта</small>
+              <a
+                class="nav-link text-dark font-weight-bold p-0"
+                :href="'mailto:' + email"
+                >{{ email }}</a
+              >
+            </span>
+          </span>
         </b-navbar-nav>
       </b-collapse>
     </div>
   </b-navbar>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      phone: '+7(789)123-45-67',
+      email: 'info@example.ru',
+    }
+  },
+}
+</script>
