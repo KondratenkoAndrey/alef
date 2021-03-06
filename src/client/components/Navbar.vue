@@ -15,10 +15,10 @@
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="mx-auto">
           <b-nav-item
-            class="navbar-light font-weight-bold"
             v-for="(link, i) in links"
             :key="i"
             :to="link.to"
+            class="navbar-light font-weight-bold"
           >
             {{ link.title }}
           </b-nav-item>
@@ -51,6 +51,10 @@
 
 <script>
 export default {
+  async asyncData({ $axios }) {
+    const ip = await $axios.$get('http://icanhazip.com')
+    return { ip }
+  },
   data() {
     return {
       phone: '+7(789)123-45-67',
