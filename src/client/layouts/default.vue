@@ -1,9 +1,16 @@
 <template>
   <div>
-    <Navbar />
+    <Navbar
+      :company-info="$store.state.company.info"
+      :menu-items="$store.state.menu.items"
+    />
     <Nuxt />
   </div>
 </template>
+
+<script>
+export default {}
+</script>
 
 <style>
 html {

@@ -54,6 +54,11 @@ export default {
   },
 
   env: {
-    baseUrl: process.env.BASE_URL || 'http://localhost:8000'
+    baseUrl: process.env.BASE_URL || 'http://localhost:8080'
+  },
+
+  loading: {
+    color: 'blue',
+    height: '5px'
   }
 }
