@@ -10,14 +10,14 @@ export const state = () => ({
 })
 
 export const actions = {
-  async storeDispatchFunc({ commit }) {
+  async loadInfo({ commit }) {
     const { data } = await axios.get('/company-info')
-    commit('SET_DATA', data)
+    commit('setInfo', data)
   },
 }
 
 export const mutations = {
-  SET_DATA(state, data) {
+  setInfo(state, data) {
     state.info = data
   },
 }
