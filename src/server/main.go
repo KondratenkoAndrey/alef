@@ -9,6 +9,6 @@ import (
 
 func main() {
 	router := mux.NewRouter()
-	router.HandleFunc("/company-info", controllers.CompanyInfoHandler)
+	router.HandleFunc("/company-info", controllers.GetCompanyInfo)
 	log.Fatal(http.ListenAndServe(":8080", router))
 }
