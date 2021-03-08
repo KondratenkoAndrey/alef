@@ -9,11 +9,11 @@ import (
 
 func main() {
 	router := mux.NewRouter()
-	router.HandleFunc("/company", CompanyHandler)
+	router.HandleFunc("/company-info", CompanyInfoHandler)
 	log.Fatal(http.ListenAndServe(":8080", router))
 }
 
-func CompanyHandler(w http.ResponseWriter, r *http.Request) {
+func CompanyInfoHandler(w http.ResponseWriter, r *http.Request) {
 	log.Println(r.Method, r.URL)
 	w.Header().Set("Content-Type", "application/json")
 	pages := getCompanyInfo()

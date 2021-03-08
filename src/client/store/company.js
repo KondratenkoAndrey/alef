@@ -9,7 +9,7 @@ export const state = () => ({
 
 export const actions = {
   async storeDispatchFunc({ commit }) {
-    const { data } = await this.$axios.get('http://localhost:8080/company')
+    const { data } = await this.$axios.get('http://localhost:8080/company-info')
     commit('SET_DATA', data)
   },
 }
