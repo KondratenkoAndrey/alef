@@ -1,3 +1,5 @@
+import axios from '~/plugins/axios'
+
 export const state = () => ({
   info: [
     { shortName: 'Алеф' },
@@ -9,7 +11,7 @@ export const state = () => ({
 
 export const actions = {
   async storeDispatchFunc({ commit }) {
-    const { data } = await this.$axios.get('http://localhost:8080/company-info')
+    const { data } = await axios.get('/company-info')
     commit('SET_DATA', data)
   },
 }
