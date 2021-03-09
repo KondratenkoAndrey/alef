@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/KondratenkoAndrey/alef/controllers"
-	"github.com/KondratenkoAndrey/alef/middlewares"
+	"alef/controllers"
+	"alef/middlewares"
 	"github.com/gorilla/mux"
 	"log"
 	"net/http"
@@ -17,5 +17,11 @@ func main() {
 	if strings.ToLower(env) != "production" {
 		router.Use(middlewares.LoggingMiddleware)
 	}
-	log.Fatal(http.ListenAndServe(":8080", router))
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+	log.Println("Server started with environment:", env)
+	log.Println("Listen on", "localhost:"+port)
+	log.Fatal(http.ListenAndServe(":"+port, router))
 }

@@ -1,8 +1,8 @@
 package controllers
 
 import (
+	"alef/models"
 	"encoding/json"
-	"github.com/KondratenkoAndrey/alef/models"
 	"net/http"
 )
 

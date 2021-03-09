@@ -1,4 +1,4 @@
-module github.com/KondratenkoAndrey/alef
+module alef
 
 go 1.16
 
