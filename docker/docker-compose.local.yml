@@ -1,0 +1,7 @@
+version: '3.8'
+
+services:
+  alefdb:
+    image: postgres:13.3
+    ports:
+      - 5432:5432
