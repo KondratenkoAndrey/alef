@@ -11,5 +11,6 @@ version: '3.8'
 services:
   alefdb:
     environment:
+	  - POSTGRES_USER={user_name}
       - POSTGRES_PASSWORD={password}
 ```
