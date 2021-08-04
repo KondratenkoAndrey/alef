@@ -13,4 +13,12 @@ services:
     environment:
       - POSTGRES_USER={user_name}
       - POSTGRES_PASSWORD={password}
+
+  server:
+    environment:
+      - APP_ENV={environment}
+      - DB_HOST={database_host}
+      - DB_USER={database_user}
+      - DB_PASSWORD={database_password}
+      - DB_NAME={database_name}
 ```
