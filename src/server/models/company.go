@@ -1,5 +1,9 @@
 package models
 
+import (
+	"gorm.io/gorm"
+)
+
 type CompanyInfo struct {
 	ShortName string `json:"shortName"`
 	FullName  string `json:"fullName"`
@@ -7,11 +11,17 @@ type CompanyInfo struct {
 	Email     string `json:"email"`
 }
 
-func GetCompanyInfo() CompanyInfo {
-	return CompanyInfo{
-		ShortName: "Алеф",
-		FullName:  "Компания Алеф",
-		Phone:     "+7(789)123-45-67",
-		Email:     "info@example.ru",
+func (CompanyInfo) TableName() string {
+	return "company_info"
+}
+
+func GetCompanyInfo(db *gorm.DB) (CompanyInfo, error) {
+	var companyInfo CompanyInfo
+	db.Take(&companyInfo)
+
+	if result := db.Take(&companyInfo); result.Error != nil {
+		return companyInfo, result.Error
 	}
+
+	return companyInfo, nil
 }

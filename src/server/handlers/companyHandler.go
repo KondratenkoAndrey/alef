@@ -1,13 +1,16 @@
-package controllers
+package handlers
 
 import (
 	"alef/models"
-	"encoding/json"
+	"gorm.io/gorm"
 	"net/http"
 )
 
-func GetCompanyInfo(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
-	pages := models.GetCompanyInfo()
-	json.NewEncoder(w).Encode(pages)
+func GetCompanyInfo(db *gorm.DB, w http.ResponseWriter, r *http.Request) {
+	companyInfo, err := models.GetCompanyInfo(db)
+	if err != nil {
+		respondError(w, 500, "Внутренняя ошибка сервера. Повторите попытку позже.")
+	} else {
+		respondJSON(w, http.StatusOK, companyInfo)
+	}
 }

@@ -1,11 +1,16 @@
 package app
 
 import (
-	"alef/controllers"
+	"alef/config"
+	"alef/handlers"
+	"alef/middlewares"
 	"fmt"
 	"github.com/gorilla/mux"
+	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"log"
+	"net/http"
+	"strings"
 )
 
 type App struct {
@@ -14,22 +19,40 @@ type App struct {
 }
 
 func (a *App) Initialize(config *config.Config) {
-	dbURI := fmt.Sprintf("%s:%s@/%s?charset=%s&parseTime=True",
+	dbUri := fmt.Sprintf("host=%s user=%s dbname=%s sslmode=disable password=%s",
+		config.DB.Host,
 		config.DB.Username,
-		config.DB.Password,
-		config.DB.Name,
-		config.DB.Charset)
+		config.DB.DbName,
+		config.DB.Password)
 
-	db, err := gorm.Open(config.DB.Dialect, dbURI)
+	db, err := gorm.Open(postgres.Open(dbUri), &gorm.Config{})
 	if err != nil {
 		log.Fatal("Could not connect database")
 	}
 
-	a.DB = model.DBMigrate(db)
+	a.DB = db
 	a.Router = mux.NewRouter()
 	a.setRouters()
+	if strings.ToLower(config.Environment) != "production" {
+		a.Router.Use(middlewares.LoggingMiddleware)
+	}
+
+	log.Println("Server started with environment:", config.Environment)
 }
 
 func (a *App) setRouters() {
-	a.Router.HandleFunc("/company-info", controllers.GetCompanyInfo)
+	a.Get("/company-info", a.GetCompanyInfo)
+}
+
+func (a *App) Run(host string) {
+	log.Println("Listen on", host)
+	log.Fatal(http.ListenAndServe(host, a.Router))
+}
+
+func (a *App) Get(path string, f func(w http.ResponseWriter, r *http.Request)) {
+	a.Router.HandleFunc(path, f).Methods("GET")
+}
+
+func (a *App) GetCompanyInfo(w http.ResponseWriter, r *http.Request) {
+	handlers.GetCompanyInfo(a.DB, w, r)
 }
