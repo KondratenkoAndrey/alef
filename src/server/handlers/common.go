@@ -20,3 +20,7 @@ func respondJSON(w http.ResponseWriter, status int, payload interface{}) {
 func respondError(w http.ResponseWriter, code int, message string) {
 	respondJSON(w, code, map[string]string{"error": message})
 }
+
+func respondInternalServerError(w http.ResponseWriter) {
+	respondJSON(w, 500, map[string]string{"error": "Внутренняя ошибка сервера. Повторите попытку позже."})
+}

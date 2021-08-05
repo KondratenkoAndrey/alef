@@ -6,10 +6,10 @@ import (
 	"net/http"
 )
 
-func GetCompanyInfo(db *gorm.DB, w http.ResponseWriter, r *http.Request) {
-	companyInfo, err := models.GetCompanyInfo(db)
-	if err != nil {
-		respondError(w, 500, "Внутренняя ошибка сервера. Повторите попытку позже.")
+func GetCompanyInfo(db *gorm.DB, w http.ResponseWriter) {
+	var companyInfo models.CompanyInfo
+	if result := db.Take(&companyInfo); result.Error != nil {
+		respondInternalServerError(w)
 	} else {
 		respondJSON(w, http.StatusOK, companyInfo)
 	}

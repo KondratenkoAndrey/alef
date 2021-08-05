@@ -31,7 +31,7 @@ func (a *App) Initialize(config *config.Config) {
 	}
 
 	a.DB = db
-	a.Router = mux.NewRouter()
+	a.Router = mux.NewRouter().UseEncodedPath()
 	a.setRouters()
 	if strings.ToLower(config.Environment) != "production" {
 		a.Router.Use(middlewares.LoggingMiddleware)
@@ -42,6 +42,7 @@ func (a *App) Initialize(config *config.Config) {
 
 func (a *App) setRouters() {
 	a.Get("/company-info", a.GetCompanyInfo)
+	a.Get("/page/{url}", a.GetPageByUrl)
 }
 
 func (a *App) Run(host string) {
@@ -54,5 +55,9 @@ func (a *App) Get(path string, f func(w http.ResponseWriter, r *http.Request)) {
 }
 
 func (a *App) GetCompanyInfo(w http.ResponseWriter, r *http.Request) {
-	handlers.GetCompanyInfo(a.DB, w, r)
+	handlers.GetCompanyInfo(a.DB, w)
+}
+
+func (a *App) GetPageByUrl(w http.ResponseWriter, r *http.Request) {
+	handlers.GetPageByUrl(a.DB, w, r)
 }
