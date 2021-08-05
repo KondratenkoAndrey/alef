@@ -21,7 +21,35 @@
 </template>
 
 <script>
-export default {}
+import axios from '~/plugins/axios'
+
+export default {
+  async asyncData({ route, error }) {
+    const page = await axios.get('/page/%2F')
+
+    return {
+      title: page.data.title,
+      description: page.data.description,
+    }
+  },
+  data() {
+    return {
+      title: '',
+      description: '',
+    }
+  },
+  head() {
+    return {
+      title: this.title,
+      meta: [
+        {
+          name: 'description',
+          content: this.description,
+        },
+      ],
+    }
+  },
+}
 </script>
 
 <style scoped>
