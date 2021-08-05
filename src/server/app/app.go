@@ -6,6 +6,7 @@ import (
 	"alef/middlewares"
 	"fmt"
 	"github.com/gorilla/mux"
+	"github.com/rs/cors"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"log"
@@ -15,6 +16,7 @@ import (
 
 type App struct {
 	Router *mux.Router
+	Cors   *cors.Cors
 	DB     *gorm.DB
 }
 
@@ -33,9 +35,23 @@ func (a *App) Initialize(config *config.Config) {
 	a.DB = db
 	a.Router = mux.NewRouter().UseEncodedPath()
 	a.setRouters()
-	if strings.ToLower(config.Environment) != "production" {
+
+	var origins []string
+
+	switch strings.ToLower(config.Environment) {
+	case "development":
 		a.Router.Use(middlewares.LoggingMiddleware)
+		origins = []string{"*"}
+	default:
+		origins = []string{"alefdoc.ru"}
 	}
+
+	c := cors.New(cors.Options{
+		AllowedOrigins:   origins,
+		AllowCredentials: true,
+	})
+
+	a.Cors = c
 
 	log.Println("Server started with environment:", config.Environment)
 }
@@ -47,7 +63,8 @@ func (a *App) setRouters() {
 
 func (a *App) Run(host string) {
 	log.Println("Listen on", host)
-	log.Fatal(http.ListenAndServe(host, a.Router))
+	handler := a.Cors.Handler(a.Router)
+	log.Fatal(http.ListenAndServe(host, handler))
 }
 
 func (a *App) Get(path string, f func(w http.ResponseWriter, r *http.Request)) {
