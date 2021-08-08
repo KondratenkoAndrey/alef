@@ -1,7 +1,7 @@
 package models
 
 type Page struct {
-	Id          string `json:"-"`
+	Id          string `json:"id"`
 	ParentId    string `json:"-"`
 	Url         string `json:"url"`
 	Name        string `json:"name"`
