@@ -1,21 +1,27 @@
 <template>
   <div class="container">
-    <div>
-      <Logo />
-      <h1 class="title">alef</h1>
+    <div class="row">
+      <!-- eslint-disable-next-line vue/no-v-html -->
+      <div v-html="content.main"></div>
+    </div>
+    <div class="row text-center align-items-center justify-content-center my-4">
       <!-- prettier-ignore -->
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, ab. Doloribus voluptatum consectetur a! Dignissimos laboriosam maxime alias nobis sit amet omnis fuga, natus doloremque eligendi ratione adipisci voluptatum delectus.
-        Totam laudantium quae quod numquam eum soluta nulla, eligendi quibusdam? Quidem, ipsum iste rerum nesciunt error aliquam nemo impedit nisi ex itaque veritatis, possimus natus perferendis dolorum porro, aspernatur quisquam?
-        Unde, aperiam culpa qui esse eum voluptate laudantium impedit odit itaque eius maxime. Incidunt aut vitae magni saepe inventore repellendus soluta quisquam, rem veritatis atque ea molestiae aspernatur. Ipsa, facilis.
-        Molestias et alias optio quia eaque voluptates inventore illum dolores! Similique tenetur, nulla sint enim animi accusantium perspiciatis adipisci fuga saepe voluptatibus doloribus deserunt deleniti odio eos non repudiandae? Accusantium?
-        Quibusdam, tempore? Voluptate fugiat dicta nam aperiam obcaecati molestiae reiciendis est sit quas fuga, totam inventore nihil sequi officiis nulla quidem unde. Accusantium, temporibus natus inventore necessitatibus vel maxime sunt.
-        Distinctio temporibus ut ab sint eius? Libero nobis voluptatibus dolorem eum, labore neque tempora cupiditate earum quidem, molestiae ipsam voluptatum necessitatibus mollitia nihil, asperiores culpa alias cum eligendi eaque. Ad.
-        Aperiam rerum rem, sint voluptatem exercitationem cupiditate delectus quisquam totam voluptate porro accusantium. Provident animi quae numquam repudiandae id non est maiores quod. Doloremque beatae ipsum quod adipisci. Magnam, aperiam?
-        Cupiditate ducimus mollitia sit non repellendus nulla sed sapiente iste reiciendis commodi, illo qui ratione, ex velit tenetur autem error eius repudiandae? Sapiente, saepe molestias culpa expedita dignissimos unde similique.
-        Quia nulla aliquid ducimus repellendus tenetur porro soluta, est harum atque optio molestias maxime facilis incidunt corrupti excepturi odit magni ad quidem ullam eligendi sit quas corporis. At, ipsam dolorem?
-        Fugit, sint incidunt adipisci, distinctio saepe eius ipsam fuga quam dolor vitae eos, molestiae unde omnis sapiente autem velit maiores et consequuntur ex consequatur necessitatibus reiciendis officia. Enim, similique et.
-      </p>
+      <div class="card bg-light m-3" style="width: 18rem"><h1>1</h1></div>
+      <div class="card bg-light m-3" style="width: 18rem"><h1>2</h1></div>
+      <div class="card bg-light m-3" style="width: 18rem"><h1>3</h1></div>
+      <div class="card bg-light m-3" style="width: 18rem"><h1>4</h1></div>
+      <div class="card bg-light m-3" style="width: 18rem"><h1>5</h1></div>
+      <div class="card bg-light m-3" style="width: 18rem"><h1>6</h1></div>
+      <div class="card bg-light m-3" style="width: 18rem"><h1>7</h1></div>
+      <div class="card bg-light m-3" style="width: 18rem"><h1>8</h1></div>
+      <div class="card bg-light m-3" style="width: 18rem"><h1>9</h1></div>
+      <div class="card bg-light m-3" style="width: 18rem"><h1>10</h1></div>
+      <div class="card bg-light m-3" style="width: 18rem"><h1>11</h1></div>
+      <div class="card bg-light m-3" style="width: 18rem"><h1>12</h1></div>
+    </div>
+    <div class="row">
+      <!-- eslint-disable-next-line vue/no-v-html -->
+      <div v-html="content.bottomText"></div>
     </div>
   </div>
 </template>
@@ -26,15 +32,22 @@ import axios from '~/plugins/axios'
 export default {
   async asyncData({ route, error }) {
     const page = await axios.get('/page/' + encodeURIComponent(route.path))
+    const rawContent = await axios.get('/content/' + page.data.id)
+    const contents = rawContent.data.reduce(
+      (a, x) => ({ ...a, [x.tag]: x.data }),
+      {}
+    )
     return {
       title: page.data.title,
       description: page.data.description,
+      content: contents,
     }
   },
   data() {
     return {
       title: '',
       description: '',
+      content: {},
     }
   },
   head() {
@@ -52,14 +65,6 @@ export default {
 </script>
 
 <style scoped>
-.container {
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
 .title {
   font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
     'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
