@@ -25,8 +25,7 @@ import axios from '~/plugins/axios'
 
 export default {
   async asyncData({ route, error }) {
-    const page = await axios.get('/page/%2F')
-
+    const page = await axios.get('/page/' + encodeURIComponent(route.path))
     return {
       title: page.data.title,
       description: page.data.description,
