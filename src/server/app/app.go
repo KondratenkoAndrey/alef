@@ -4,6 +4,7 @@ import (
 	"alef/config"
 	"alef/handlers"
 	"alef/middlewares"
+	"alef/models"
 	"fmt"
 	"github.com/gorilla/mux"
 	"github.com/rs/cors"
@@ -32,7 +33,12 @@ func (a *App) Initialize(config *config.Config) {
 		log.Fatal("Could not connect database")
 	}
 
+	db.AutoMigrate(
+		&models.CompanyInfo{},
+		&models.Page{},
+		&models.Content{})
 	a.DB = db
+
 	a.Router = mux.NewRouter().UseEncodedPath()
 	a.setRouters()
 

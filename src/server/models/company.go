@@ -1,10 +1,11 @@
 package models
 
 type CompanyInfo struct {
-	ShortName string `json:"shortName"`
-	FullName  string `json:"fullName"`
-	Phone     string `json:"phone"`
-	Email     string `json:"email"`
+	Id        uint   `json:"-" gorm:"comment:Идентификатор компании"`
+	ShortName string `json:"shortName" gorm:"size:64;comment:Краткое наименование"`
+	FullName  string `json:"fullName" gorm:"size:256;comment:Полное наименование"`
+	Phone     string `json:"phone" gorm:"size:16;comment:Телефон"`
+	Email     string `json:"email" gorm:"size:64;comment:Электронная почта"'`
 }
 
 func (CompanyInfo) TableName() string {
