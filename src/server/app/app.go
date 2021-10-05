@@ -36,7 +36,8 @@ func (a *App) Initialize(config *config.Config) {
 	db.AutoMigrate(
 		&models.CompanyInfo{},
 		&models.Page{},
-		&models.Content{})
+		&models.Content{},
+		&models.Service{})
 	a.DB = db
 
 	a.Router = mux.NewRouter().UseEncodedPath()
@@ -66,6 +67,7 @@ func (a *App) setRouters() {
 	a.Get("/company-info", a.GetCompanyInfo)
 	a.Get("/page/{url}", a.GetPageByUrl)
 	a.Get("/content/{page-id}", a.GetPageContent)
+	a.Get("/service", a.GetAllServices)
 }
 
 func (a *App) Run(host string) {
@@ -88,4 +90,8 @@ func (a *App) GetPageByUrl(w http.ResponseWriter, r *http.Request) {
 
 func (a *App) GetPageContent(w http.ResponseWriter, r *http.Request) {
 	handlers.GetPageContent(a.DB, w, r)
+}
+
+func (a *App) GetAllServices(w http.ResponseWriter, r *http.Request) {
+	handlers.GetAllServices(a.DB, w, r)
 }
