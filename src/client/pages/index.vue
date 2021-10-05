@@ -2,26 +2,39 @@
   <div class="container">
     <div class="row">
       <!-- eslint-disable-next-line vue/no-v-html -->
-      <div v-html="content.main"></div>
+      <div v-html="contents.main"></div>
     </div>
-    <div class="row text-center align-items-center justify-content-center my-4">
-      <!-- prettier-ignore -->
-      <div class="card bg-light m-3" style="width: 18rem"><h1>1</h1></div>
-      <div class="card bg-light m-3" style="width: 18rem"><h1>2</h1></div>
-      <div class="card bg-light m-3" style="width: 18rem"><h1>3</h1></div>
-      <div class="card bg-light m-3" style="width: 18rem"><h1>4</h1></div>
-      <div class="card bg-light m-3" style="width: 18rem"><h1>5</h1></div>
-      <div class="card bg-light m-3" style="width: 18rem"><h1>6</h1></div>
-      <div class="card bg-light m-3" style="width: 18rem"><h1>7</h1></div>
-      <div class="card bg-light m-3" style="width: 18rem"><h1>8</h1></div>
-      <div class="card bg-light m-3" style="width: 18rem"><h1>9</h1></div>
-      <div class="card bg-light m-3" style="width: 18rem"><h1>10</h1></div>
-      <div class="card bg-light m-3" style="width: 18rem"><h1>11</h1></div>
-      <div class="card bg-light m-3" style="width: 18rem"><h1>12</h1></div>
+    <div>
+      <b-card-group columns>
+        <b-card v-for="service of services" :key="service.id">
+          <template #header>
+            <h5 class="mb-0 text-center">{{ service.name }}</h5>
+          </template>
+          <b-card-text>
+            <picture>
+              <source :srcset="service.imagePath + '.webp'" type="image/webp" />
+              <source :srcset="service.imagePath + '.jpg'" type="image/jpeg" />
+              <img
+                class="card-img-top"
+                :src="service.imagePath + '.jpg'"
+                :alt="service.name"
+              />
+            </picture>
+          </b-card-text>
+          <template #footer>
+            <a
+              class="btn btn-sm btn-secondary"
+              :href="'service/' + service.tag"
+            >
+              Подробнее
+            </a>
+          </template>
+        </b-card>
+      </b-card-group>
     </div>
     <div class="row">
       <!-- eslint-disable-next-line vue/no-v-html -->
-      <div v-html="content.bottomText"></div>
+      <div v-html="contents.bottomText"></div>
     </div>
   </div>
 </template>
@@ -33,6 +46,7 @@ export default {
   async asyncData({ route, error }) {
     const page = await axios.get('/page/' + encodeURIComponent(route.path))
     const rawContent = await axios.get('/content/' + page.data.id)
+    const services = await axios.get('/service')
     const contents = rawContent.data.reduce(
       (a, x) => ({ ...a, [x.tag]: x.data }),
       {}
@@ -40,14 +54,16 @@ export default {
     return {
       title: page.data.title,
       description: page.data.description,
-      content: contents,
+      contents,
+      services: services.data.filter((s) => s.parentId === 0),
     }
   },
   data() {
     return {
       title: '',
       description: '',
-      content: {},
+      contents: {},
+      services: {},
     }
   },
   head() {
