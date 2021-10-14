@@ -4,33 +4,42 @@
       <!-- eslint-disable-next-line vue/no-v-html -->
       <div v-html="contents.main"></div>
     </div>
-    <div>
-      <b-card-group columns>
-        <b-card v-for="service of services" :key="service.id">
-          <template #header>
-            <h5 class="mb-0 text-center">{{ service.name }}</h5>
-          </template>
-          <b-card-text>
-            <picture>
-              <source :srcset="service.imagePath + '.webp'" type="image/webp" />
-              <source :srcset="service.imagePath + '.jpg'" type="image/jpeg" />
-              <img
-                class="card-img-top"
-                :src="service.imagePath + '.jpg'"
-                :alt="service.name"
-              />
-            </picture>
-          </b-card-text>
-          <template #footer>
-            <a
-              class="btn btn-sm btn-secondary"
-              :href="'service/' + service.tag"
-            >
-              Подробнее
-            </a>
-          </template>
-        </b-card>
-      </b-card-group>
+
+    <div class="container mt-4">
+      <div class="row justify-content-center">
+        <div v-for="service of services" :key="service.id">
+          <div class="col-auto mb-3">
+            <div class="card" style="width: 18rem">
+              <div class="card-body">
+                <h5 class="card-title">{{ service.name }}</h5>
+                <picture>
+                  <source
+                    :srcset="service.imagePath + '.webp'"
+                    type="image/webp"
+                  />
+                  <source
+                    :srcset="service.imagePath + '.jpg'"
+                    type="image/jpeg"
+                  />
+                  <img
+                    class="card-img-top"
+                    :src="service.imagePath + '.jpg'"
+                    :alt="service.name"
+                  />
+                </picture>
+              </div>
+              <div class="card-body p-3">
+                <a
+                  class="btn btn-sm btn-secondary"
+                  :href="'service/' + service.tag"
+                >
+                  Подробнее
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="row">
       <!-- eslint-disable-next-line vue/no-v-html -->
