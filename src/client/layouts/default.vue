@@ -5,6 +5,59 @@
       :menu-items="$store.state.menu.items"
     />
     <Nuxt />
+    <footer class="border-top footer text-muted mt-3 pt-2">
+      <div class="container">
+        <div class="text-center">
+          &copy; Алеф, {{ new Date().getFullYear() }} г. Все права защищены.
+        </div>
+        <div class="row justify-content-center mt-1">
+          <a
+            class="text-muted footer-legal-link"
+            asp-area=""
+            asp-controller="Legal"
+            asp-action="Privacy"
+            >Политика конфиденциальности</a
+          >
+          <a
+            class="text-muted footer-legal-link"
+            asp-area=""
+            asp-controller="Legal"
+            asp-action="Cookies"
+            >Использование cookies</a
+          >
+        </div>
+        <div class="row justify-content-center mt-1">
+          <a class="pr-2" href="https://vk.com/alefdoc" target="_blank">
+            <ion-icon name="logo-vk" size="small"></ion-icon>
+          </a>
+          <a
+            class="pr-2"
+            href="https://www.facebook.com/alefdoc/"
+            target="_blank"
+          >
+            <ion-icon name="logo-facebook" size="small"></ion-icon>
+          </a>
+          <a
+            class="pr-2"
+            href="https://www.instagram.com/alefdoc/"
+            target="_blank"
+          >
+            <ion-icon name="logo-instagram" size="small"></ion-icon>
+          </a>
+          <a
+            class="pr-2"
+            href="https://zen.yandex.ru/id/5e515cdcfc020165b28c7f75/"
+            target="_blank"
+          >
+            <ion-icon
+              src="/images/icon/socials/zen-icon.svg"
+              size="small"
+            ></ion-icon>
+          </a>
+        </div>
+      </div>
+    </footer>
+    <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
   </div>
 </template>
 
