@@ -10,8 +10,10 @@
         <div v-for="service of services" :key="service.id">
           <div class="col-auto mb-3">
             <div class="card" style="width: 18rem">
-              <div class="card-body">
-                <h5 class="card-title">{{ service.name }}</h5>
+              <div class="card-body p-0">
+                <h5 class="card-title p-2 m-0 text-center" style="height: 4rem">
+                  {{ service.name }}
+                </h5>
                 <picture>
                   <source
                     :srcset="service.imagePath + '.webp'"
