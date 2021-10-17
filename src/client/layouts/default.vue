@@ -11,18 +11,10 @@
           &copy; Алеф, {{ new Date().getFullYear() }} г. Все права защищены.
         </div>
         <div class="row justify-content-center mt-1">
-          <a
-            class="text-muted footer-legal-link"
-            asp-area=""
-            asp-controller="Legal"
-            asp-action="Privacy"
+          <a class="text-muted footer-legal-link" href="/legal/privacy"
             >Политика конфиденциальности</a
           >
-          <a
-            class="text-muted footer-legal-link"
-            asp-area=""
-            asp-controller="Legal"
-            asp-action="Cookies"
+          <a class="text-muted footer-legal-link" href="/legal/cookies"
             >Использование cookies</a
           >
         </div>
@@ -112,5 +104,33 @@ html {
 .button--grey:hover {
   color: #fff;
   background-color: #35495e;
+}
+
+.footer {
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 0.8rem;
+}
+
+.footer-legal-link {
+  border-right: 1px solid #d6d6d6;
+  margin-right: 7px;
+  padding-right: 10px;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.footer-legal-link:last-child {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.footer .row {
+  margin-left: 0px;
+  margin-right: 0px;
 }
 </style>
